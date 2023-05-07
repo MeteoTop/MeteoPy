@@ -37,5 +37,10 @@
 | del_suffix()         | 删除指定文件夹下，指定后缀名的文件（无论嵌套层数）; |
 | pdf_concat()         | 合并指定文件夹下的所有pdf文件;                      |
 | get_Innermost_file() | 获取文件夹最内层的数据文件，主要用于多层文件嵌套时; |
-|                      |                                                     |
+| search_str()         | 搜索文件夹下所有文件，查找指定内容，并输出高亮显示  |
 
+`注意：`
+
++ search_str()函数，如果想将查询到的print输出保存到文件，建议注释掉下图框选的语句，并解注释下图中注释掉的语句
+
+  ![image-20230501224033749](C:\Users\NH4NO3nice\AppData\Roaming\Typora\typora-user-images\image-20230501224033749.png)

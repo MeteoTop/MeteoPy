@@ -111,13 +111,15 @@ def pdf_concat(path : str,
         merge.write(f)
 
 
-def get_Innermost_file(outer_filename : str, 
-                       Innermost_file_suffix : str) -> list:
-    """获取文件夹最内层的数据文件，主要用于多层文件嵌套时
+def get_all_file(target_path : str, 
+                 file_suffix : str = None, 
+                 match_case : bool = True) -> list:
+    """获取文件夹内所有指定后缀的文件，包括所有嵌套文件夹内的文件
 
     Args:
-        outer_filename (str): 最外层文件夹名(地址), 末尾不含\;
-        Innermost_file_suffix (str): 最内层数据文件的后缀名, 无.;
+        target_path (str): 最外层文件夹名(地址), 末尾不含\
+        file_suffix (str, optional): 文件后缀名，含.. Defaults to None.
+        match_case (str, optional): 是否区分你大小写.. Defaults to True.
 
     Returns:
         list: 返回指定文件夹下所有指定后缀的文件名
@@ -126,19 +128,91 @@ def get_Innermost_file(outer_filename : str,
     import os
 
 
-    files = [outer_filename + '\\' + x for x in os.listdir(outer_filename)]  # 获取第一层文件夹内的文件名，并补全地址
-    while True:
-        if Innermost_file_suffix.lower() in \
-            [x[-1 * len(Innermost_file_suffix):].lower() for x in files]:
-            break
+    paths = [target_path + '/' + x for x in os.listdir(target_path)]  # 获取第一层文件夹内的文件名，并补全地址
+    res = []  # 存储结果
+    for path in paths:
+        if os.path.isdir(path):
+            temp_res = get_all_file(path, file_suffix)
+            res.extend(temp_res)
         else:
-            files = [x + '\\' for x in files]  # 在末尾加上'\\'
-            temp = []
-            for file in files:
-                temp = temp + [file + x for x in os.listdir(file)]
-            files = temp
-            
-    return files
+            if file_suffix == None:
+                res.append(path)
+            else:
+                if match_case:
+                    if path[-1 * len(file_suffix):] == file_suffix:
+                        res.append(path)
+                else:
+                    if path[-1 * len(file_suffix):].lower() == file_suffix.lower():
+                        res.append(path)
+                
+    return res
+
+
+def search_str(target_path : str, 
+               target_str : str, 
+               match_case : bool = True,
+               target_suffix : str = None, 
+               output_type : str = 'console'):
+    """搜索文件夹下所有文件，查找指定内容
+
+    Args:
+        target_path (str): 目标文件夹
+        target_str (str): 目标字符串
+        match_case (str, optional): 是否区分你大小写.. Defaults to False.
+        target_suffix (str, optional): 目标文件后缀名. Defaults to True.
+        output_type (str, optional): print输出显示位置. Defaults to console.
+
+    注意：output_type参数默认未控制台输出，查询结果可高亮显示，并且可将输出存为文本。
+         但在非控制台输出时，不能显示颜色，比如jupyter输出。
+         非控制台输出时，也可高亮显示，但是将输出存为文本包含颜色控制语句。
+
+         "console"和"unconsole"冲突，如果在同一个脚本中，先运行了console，则后面的unconsole
+         将会失去高亮显示作用.
+    """
+
+    import os
+
+
+    if os.path.isdir(target_path):
+        all_target_file = get_all_file(target_path, target_suffix, match_case)
+    else:
+        all_target_file = [target_path]
+
+    for file in all_target_file:
+        f = open(file, 'r', encoding='UTF-8')
+        lines = f.readlines()  # 读取所有行
+        for i in range(len(lines)):
+            if match_case:
+                temp1 = target_str
+                temp2 = lines[i]
+            else:
+                temp1 = target_str.lower()
+                temp2 = lines[i].lower()
+
+            if temp1 in temp2:
+                if output_type == 'console':
+                    from colorama import Fore, init
+
+                    init(autoreset=True)
+                    print(Fore.MAGENTA + file, end=':')
+                    print(Fore.GREEN + str(i + 1), end=':')
+                elif output_type == 'unconsole':
+                    print('\033[35m' + file + '\033[0m', end=':')
+                    print('\033[32m' + str(i + 1) + '\033[0m', end=':')
+                else:
+                    raise Exception("Invalid key: 'output_type' is only console or unconsole")
+                num_len = 0
+                for j in temp2.split(temp1):
+                    print(lines[i][num_len:(num_len + len(j))], end='')
+                    num_len = num_len + len(j)
+                    # # lines[i]为字符串，所以在最后一个元素的时候，
+                    # # 也不存在索引越界的情况，超过范围的索引返回空值''
+                    if output_type == 'console':
+                        print(Fore.RED + lines[i][num_len:(num_len + len(temp1))], end='')
+                    elif output_type == 'unconsole':
+                        print('\033[31m' + lines[i][num_len:(num_len + len(temp1))] + '\033[0m', end='')
+                    num_len = num_len + len(temp1)
+        f.close()
 
 
 

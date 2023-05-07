@@ -268,6 +268,49 @@ def box_select_rectangular(ax,
         plt.close()
 
 
+def shp2clip(originfig, ax, 
+             shpfile : str, 
+             fieldVals : list):
+    """地图掩膜
+
+    Args:
+        originfig (_type_): 掩膜对象，cotour_f返回的cs
+        ax (_type_): 绘图对象
+        shpfile (str): 用来掩膜的地图文件shp
+        fieldVals (list): 地图文件shp中能唯一确定想要保留区域的识别符（可以是任意且唯一确定的）
+                           可以是一个，或多个(表示想要保留的对象不止一个)
+                           [在shp文件中标识符对应的索引号, [标识符]]
+
+    Returns:
+        _type_: _description_
+    """
+
+    import shapefile
+    from matplotlib.path import Path
+    from matplotlib.patches import PathPatch
+
+
+    sf = shapefile.Reader(shpfile)
+    vertices = []
+    codes = []
+    for shape_rec in sf.shapeRecords():
+        if shape_rec.record[fieldVals[0]] in fieldVals[1]:  # 注意这里需要指定你的字段的索引号，我的是第3个字段
+            pts = shape_rec.shape.points
+            prt = list(shape_rec.shape.parts) + [len(pts)]
+            for i in range(len(prt) - 1):
+                for j in range(prt[i], prt[i + 1]):
+                    vertices.append((pts[j][0], pts[j][1]))
+                codes += [Path.MOVETO]
+                codes += [Path.LINETO] * (prt[i + 1] - prt[i] - 2)
+                codes += [Path.CLOSEPOLY]
+            clip = Path(vertices, codes)
+            clip = PathPatch(clip, transform=ax.transData)
+
+    for contour in originfig.collections:
+        contour.set_clip_path(clip)
+    return clip
+
+
 def LU_MODIS20():
     """MODIS-20种土地利用类型 
        绘制的土地类型、标签与对应色标
