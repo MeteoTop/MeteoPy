@@ -1,4 +1,4 @@
-# PyLib
+# MeteoPy
 在此仓库中将存放一些我们在科研过程中实用的python脚本，主要针对大气科学学科。
 
 ## 脚本规范
@@ -77,7 +77,7 @@ def Function(var1 : str,
 
 此文件夹为工具文件夹，属于功能文件夹。存放一些工具类函数，如地图白化、Lambert投影的坐标刻度显示等等。在此测试文件夹内又将工具函数分为三类，FileTools.py、FunVarDefault.py、GraphTools.py。
 
-[工具文件夹介绍]: ./Tools/README.md
+[工具文件夹介绍](./Tools/README.md)
 
 + `FileTools.py`：主要存放一些操作文件的工具函数；
 + `FunVarDefault.py`：存放一些在定义函数时，变量初始化的工具函数；
@@ -87,13 +87,13 @@ def Function(var1 : str,
 
 此文件夹为气象绘图文件夹，属于功能文件夹。存放一些绘图函数，主要可能偏向气象学。
 
-[绘图文件夹介绍]: ./MeteoDraw/README.md
+[绘图文件夹介绍](./MeteoDraw/README.md)
 
 ### DataPro
 
 此文件夹为数据处理文件夹，属于功能文件夹。存放一些数据处理的函数。
 
-[数据处理文件夹介绍]: ./DataPro/README.md
+[数据处理文件夹介绍](./DataPro/README.md)
 
 
 
