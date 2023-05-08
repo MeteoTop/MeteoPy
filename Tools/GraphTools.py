@@ -270,7 +270,9 @@ def box_select_rectangular(ax,
 
 def shp2clip(originfig, ax, 
              shpfile : str, 
-             fieldVals : list):
+             fieldVals : list, 
+             vcplot : bool = False,
+             clabel : list = None):
     """地图掩膜
 
     Args:
@@ -280,6 +282,8 @@ def shp2clip(originfig, ax,
         fieldVals (list): 地图文件shp中能唯一确定想要保留区域的识别符（可以是任意且唯一确定的）
                            可以是一个，或多个(表示想要保留的对象不止一个)
                            [在shp文件中标识符对应的索引号, [标识符]]
+        vcplot (bool, optional): 是否对风矢量进行白化. default. False
+        clabel (list, optional): ax.clabel()返回的对象，对等值线标签进行白化. default. None
 
     Returns:
         _type_: _description_
@@ -287,7 +291,10 @@ def shp2clip(originfig, ax,
 
     import shapefile
     from matplotlib.path import Path
+    from collections import Iterable
     from matplotlib.patches import PathPatch
+    from shapely.geometry import Point as ShapelyPoint
+    from shapely.geometry import Polygon as ShapelyPolygon
 
 
     sf = shapefile.Reader(shpfile)
@@ -308,6 +315,25 @@ def shp2clip(originfig, ax,
 
     for contour in originfig.collections:
         contour.set_clip_path(clip)
+    
+    # # 白化风矢量
+    if vcplot:
+        if isinstance(originfig, Iterable):
+            for ivec in originfig:
+                ivec.set_clip_path(clip)
+        else:
+            originfig.set_clip_path(clip)
+    else:
+        for contour in originfig.collections:
+            contour.set_clip_path(clip)
+
+    # # 白化等值线标签
+    if  clabel:
+        clip_map_shapely = ShapelyPolygon(vertices)
+        for text_object in clabel:
+            if not clip_map_shapely.contains(ShapelyPoint(text_object.get_position())):
+                text_object.set_visible(False)  
+
     return clip
 
 
