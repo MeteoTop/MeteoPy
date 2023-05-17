@@ -94,19 +94,19 @@ def Function(var1 : str,
 + `FunVarDefault.py`：存放一些在定义函数时，变量初始化的工具函数；
 + `GraphTools.py`：存放一些在绘制图表过程中使用到工具函数；
 
-[工具文件夹介绍](./Tools/README.md)
+[工具文件夹介绍](./MeteoPy/Tools/README.md)
 
 ### MeteoDraw
 
 此文件夹为气象绘图文件夹，属于功能文件夹。存放一些绘图函数，主要可能偏向气象学。
 
-[绘图文件夹介绍](./MeteoDraw/README.md)
+[绘图文件夹介绍](./MeteoPy/MeteoDraw/README.md)
 
 ### DataPro
 
 此文件夹为数据处理文件夹，属于功能文件夹。存放一些数据处理的函数。
 
-[数据处理文件夹介绍](./DataPro/README.md)
+[数据处理文件夹介绍](./MeteoPy/DataPro/README.md)
 
 
 
