@@ -232,7 +232,7 @@ def box_select_rectangular(ax,
     import cartopy.crs as ccrs
     import matplotlib.path as mpath
     import matplotlib.pyplot as plt
-    from Tools.FunVarDefault import dict_default
+    from MeteoPy import dict_default
     from mpl_toolkits.axes_grid1.inset_locator import TransformedBbox, BboxPatch
 
     
