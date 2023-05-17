@@ -1,4 +1,6 @@
 /Test/TestData
-/MeteoDraw/__pycache__
-/Tools/__pycache__
-/DataPro/__pycache__
+/MeteoPy/MeteoDraw/__pycache__
+/MeteoPy/Tools/__pycache__
+/MeteoPy/DataPro/__pycache__
+/MeteoPy.egg-info
+/build
