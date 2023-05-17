@@ -43,7 +43,7 @@
 
 + search_str()函数，如果想将查询到的print输出保存到文件，建议注释掉下图框选的语句，并解注释下图中注释掉的语句
 
-  ![Tools_FileTools_search_str_1](../FigGallery/Tools_FileTools_search_str_1.png)
+  ![Tools_FileTools_search_str_1](../../FigGallery/Tools_FileTools_search_str_1.png)
 
 
 
@@ -51,4 +51,4 @@
 
 
 
-[返回主README文件](../README.md)
+[返回主README文件](../../README.md)
