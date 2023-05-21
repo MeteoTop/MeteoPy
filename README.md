@@ -1,82 +1,43 @@
 # MeteoPy
 在此仓库中将存放一些我们在科研过程中实用的python脚本，主要针对大气科学学科。
 
-## 脚本规范
-我们尝试将一些在科研中经常使用到的python脚本封装成`函数`或者`类`，方便下次使用。因此本部分对上传脚本的格式做出如下规范：
+## MeteoPy库如何下载
 
-### 程序书写规范
+1. 首先进入本函数库的开源官网：https://gitee.com/MeteoTop/MeteoPy；
 
-在程序书写过程中，应善用`空格`，提高程序的可读性。一般变量后都用一个空格与其他变量分隔；
+2. 在右侧栏找到“发行版”标签，点击进入发行版；
 
-### 函数/类说明文字
+   ![HowDownload_1](./FigGallery/HowDownload_1.png)
 
-```python
-def Function(var1 : str, 
-             var2 : int, 
-             var3 : float, 
-             var4 : list = [1, 2, 3], 
-             var5 : dict = {'a':1, 'b':2, 'c':3}, 
-             *var6, 
-             **var7
-             ) -> str:
-    """_summary_
+3. 选择你所需要下载的版本，点击对应版本下载`.whl`文件；
 
-    Args:
-        var1 (str): _description_
-        var2 (int): _description_
-        var3 (float): _description_
-        var4 (list, optional): _description_. Defaults to [1, 2, 3].
-        var5 (_type_, optional): _description_. Defaults to {'a':1, 'b':2, 'c':3}.
+   ![HowDownload_2](./FigGallery/HowDownload_2.png)
 
-    Returns:
-        str: _description_
-    """
+4. 本地安装MeteoPy库；
 
-	"""
-        >>> 变量表中，var1-3为定位参数，使用函数时，传参位置不能变，或使用关键字传参
-        >>> var4-5为默认值参数，在使用函数时，可以不传参，此时将使用默认值
-        >>> var6-7为不参参数，其中var6为不定元组，var7为不定字典
-    """
-    
-    # # 如何对字典类型的可选参数进行初始化
-    # # 使用户使用时只需指定修改的参数即可，不用将所有参数都写上
-    import sys
-	sys.path.append('../../')  # 将MeteoPy目录放入搜索目录
-    from Tools.FunVarDefault import dict_default
-    
-    # # 处理var5默认值问题
-    var5_default = {'a':1, 'b':2, 'c':3}  # 指定var5的默认值
-    if isinstance(var5, dict):
-        var5 = dict_default(var5, var5_default)  # 对var5设置默认值，用户指定的值不变
-    
-    ......
+   + 如果像直接将MeteoPy库安装到本地的主python环境中，则打开cmd命令行，`pip install + 刚刚下载的whl文件地址`；
 
-    return res
-```
+     ![HowDownload_3](./FigGallery/HowDownload_3.png)
 
-+ 明确指出各个参数的类型，及其描述。`类型注解`仅适用于**3.6**及以后版本的python，**这种类型和变量注解实际上只是一种类型提示，对运行实际上是没有影响的**；
-+ 解释`dict默认值设置`：若用户输入从`var5={'a'=3}`，则在函数中赋予默认值之后，`var5={'a':3, 'b':2, 'c':3}`；
+   + 如果想安装在conda的某个虚拟环境中，则先打开`Anaconda Prompt`，然后进入目标虚拟环境`conda activate **`，最后再`pip install + 刚刚下载的whl文件地址`;
 
-### 脚本中的注释
+     ![HowDownload_4](./FigGallery/HowDownload_4.png)
 
-+ 注释一般单行存放，或放于行末；
+     ![HowDownload_5](./FigGallery/HowDownload_5.png)
 
-+ 单行注释应为对其下方的多行程序的整体概况，使用`双#`，＃间用空格隔开。并且单行注释前应空一行；
+     
 
-+ 行末注释应为改行程序的概况，使用`单#`，前面两个空格，后面一个空格；
-
-  ```
-  # # 单行注释
-  var1 = 1  # 行末注释
-  var2 = 2
-  
-  # # 单行注释 
-  ```
+**注意：不要，不要，不要直接`pip install MeteoPy`，因为在PyPI官网上有同名函数，所有直接下载的并不是我们这个MetetoPy**
 
 
-## 脚本说明
 
-此仓库中存有多个文件夹，初略可分为`功能文件夹`和`测试文件夹`。
+
+## 函数库说明
+
+此函数库中存有多个文件夹，初略可分为`功能文件夹`和`测试文件夹`。
+
++ 本函数库也依赖其他python库，详见[MeteoPy依赖库说明](./DEPENDENCE.md)；
++ 我们尝试将一些在科研中经常使用到的python程序封装成`函数`或者`类`，方便下次使用。如果有志同道合的朋友，愿意为本开源函数库做出贡献，请仔细阅读[开发者说明](./DEVELOPER.md)；
 
 ### Test
 
