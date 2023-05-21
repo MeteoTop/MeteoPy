@@ -15,6 +15,7 @@ class Draw_map():
                       extent : list = None, 
                       xticks : list = None, 
                       yticks : list = None, 
+                      grid : dict = None,
                       basemape : dict = None,
                       cnmap : dict = None, 
                       title : str = None, 
@@ -28,9 +29,11 @@ class Draw_map():
             extent (list, optional): 地图范围. Defaults to None.
             xticks (list, optional): x坐标刻度显示列表. Defaults to None.
             yticks (list, optional): y坐标刻度显示列表. Defaults to None.
+            grid (list, optional): 设置网格线的属性. Defaults to {'linestyle':"dotted", 'linewidth':1, 'alpha':0.4}.
             basemap (list, optional): 绘制基础地图，仅海岸线、河流、湖泊、海洋、陆地;
             cnmap (dict, optional): 绘制中国区域地图. Defaults to None. 
-                    {'country':'中华人民共和国','province':'四川省', 'city':'达州市', 'district':'达川区', 'level':'区', 'inline':True}, 值可以为列表
+                    {'country':'中华人民共和国','province':'四川省', 'city':'达州市', 'district':'达川区', 'level':'区', 
+                    'inline':True, 'linewidth':0.8, 'color':'k'}, 值可以为列表
             title (str, optional): 图片标题. Defaults to None.
             tag (str, optional): 图片标签(a). Defaults to None.
             tick (list, optional): 是否显示左侧和底部坐标. Defaults to [1, 1].
@@ -50,11 +53,20 @@ class Draw_map():
 
         # # 处理cnmap默认值问题
         cnmap_default = {'country':None, 'province':None, 'city':None, 'district':None, 
-                         'level':None, 'inline':True, 'linewidth':0.8}
+                         'level':None, 'inline':True, 'linewidth':0.8, 'color':'k'}
         if isinstance(cnmap, dict):
             cnmap = dict_default(cnmap, cnmap_default)
         print('cnmap=', end='')
         print(cnmap)
+        # # 处理grid默认值问题
+        grid_default = {'linestyle':"dotted", 'linewidth':1, 'alpha':0.4}
+        if isinstance(grid, dict):
+            grid = dict_default(grid, grid_default)
+        elif grid == None:
+            grid = grid_default
+        print('grid=', end='')
+        print(grid)
+
         # # basemap中的值，与cfeature.的对应关系
         basemap_index = {'海岸线':cfeature.COASTLINE,
                          '河流':cfeature.RIVERS,
@@ -102,7 +114,7 @@ class Draw_map():
             # # 先画中国国界
             if cnmap['country']:
                 map = cnm.get_adm_maps(country='中华人民共和国')
-                cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color='k')
+                cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color=cnmap['color'])
                 
             # # 添加行政边界
             if isinstance(cnmap['province'], list):  # 如果cnmap['province']为列表
@@ -113,31 +125,31 @@ class Draw_map():
                 map = temp_maps[0]
                 for i in range(1, len(temp_maps)):
                     map = map + temp_maps[i]
-                cnm.draw_map(map, ax, linewidth=cnmap['linewidth'], color='k')
+                cnm.draw_map(map, ax, linewidth=cnmap['linewidth'], color=cnmap['color'])
 
                 if cnmap['inline']:  # 保留省与省的界限
                     for i in cnmap['province']: 
                         map = cnm.get_adm_maps(province=i, city=cnmap['city'], 
                                                district=cnmap['district'], level=cnmap['level'])
-                        cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color='k')
+                        cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color=cnmap['color'])
 
             elif cnmap['province']:
                 map = cnm.get_adm_maps(province=cnmap['province'], city=cnmap['city'], 
                                        district=cnmap['district'], level=cnmap['level'])
-                cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color='k')
+                cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color=cnmap['color'])
 
             else:
                 map = cnm.get_adm_maps(province=cnmap['province'], city=cnmap['city'], 
                                        district=cnmap['district'], level=cnmap['level'])
-                cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color='k')
+                cnm.draw_maps(map, ax, linewidth=cnmap['linewidth'], color=cnmap['color'])
         
         # # 设置经纬度刻度
         if (isinstance(xticks, np.ndarray) and isinstance(yticks, np.ndarray)) or \
             (isinstance(xticks, list) and isinstance(yticks, list)):
             # # 设置网格
             gl = ax.gridlines(xlocs=xticks, ylocs=yticks, x_inline=False, y_inline=False, 
-                              draw_labels=False, linestyle="dotted", 
-                              linewidth=1, alpha=0.4)
+                              draw_labels=False, linestyle=grid['linestyle'], 
+                              linewidth=grid['linewidth'], alpha=grid['alpha'])
             # 关闭上面和右边的经纬度显示
             gl.top_labels = False  #关闭上部经纬标签
             gl.right_labels = False # 关闭右侧经纬度标签
@@ -151,8 +163,8 @@ class Draw_map():
                 ax.set_xticklabels([])
         else:
             # # 设置网格
-            gl = ax.gridlines(x_inline=False, y_inline=False, draw_labels=True, linestyle="dotted", 
-                              linewidth=1, alpha=0.4)
+            gl = ax.gridlines(x_inline=False, y_inline=False, draw_labels=True, linestyle=grid['linestyle'], 
+                              linewidth=grid['linewidth'], alpha=grid['alpha'])
             # 关闭上面和右边的经纬度显示
             gl.top_labels = False  #关闭上部经纬标签
             gl.right_labels = False  # 关闭右侧经纬度标签
@@ -171,8 +183,8 @@ class Draw_map():
             ax.set_title(title, fontsize=12)
         # # 设置标签
         if tag:
-            ax.text(0.017, 0.955, tag, transform=ax.transAxes, backgroundcolor='white', 
-                    fontdict={'size':10})
+            ax.text(0.017, 0.955, tag, transform=ax.transAxes, 
+                    backgroundcolor='white', fontdict={'size':10})
 
 
     def draw_wind(self, ax, 
