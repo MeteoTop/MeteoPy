@@ -1,43 +1,48 @@
-# MeteoPy
-在此仓库中将存放一些我们在科研过程中实用的python脚本，主要针对大气科学学科。
+<div align="center">
+<!-- Title: -->
+  <a href="https://gitee.com/MeteoTop/MeteoPy">
+    <img src="./FigGallery/HEAD_log_1.png" height="100">
+  </a>
+  <h1><a href="https://gitee.com/MeteoTop/MeteoPy">MeteoPy</a> - Python</h1>
+<!-- Labels: -->
+  <!-- First row: -->
+  <a href="https://gitee.com/MeteoTop/MeteoPy/blob/main/DEVELOPER.md">
+    <img src="https://img.shields.io/badge/Contributions-Welcome-blue" height="20">
+  </a>
+  <a href="https://gitee.com/MeteoTop/MeteoPy/releases">
+    <img src="https://img.shields.io/badge/MeteoPy-v0.0.2-brightgreen" height="20">
+  </a>
+  <a href="https://gitee.com/MeteoTop/MeteoPy/releases">
+    <img src="https://img.shields.io/badge/Size-30KB-9cf" height="20">
+  </a>
+  <!-- Second row: -->
+  <br>
+  <a href="https://gitee.com/MeteoTop">
+    <img src="https://img.shields.io/badge/Author-@MeteoTop-orange" height="20">
+  </a>
+  <a href="https://gitee.com/MeteoTop/MeteoPy">
+    <img src="https://img.shields.io/badge/Last%20commit-2023--5--22-yellowgreen" height="20">
+  </a>
+  <!-- Short description: -->
+  <h5>在此仓库中将存放一些我们在科研过程中实用的python脚本，主要针对大气科学学科</h5>
+</div>
 
-## MeteoPy库如何下载
+## 如何使用
 
-1. 首先进入本函数库的开源官网：https://gitee.com/MeteoTop/MeteoPy；
+请参照[MeteoPy如何安装](./DOWNLOAD.md)。
 
-2. 在右侧栏找到“发行版”标签，点击进入发行版；
+## 开发者
 
-   ![HowDownload_1](./FigGallery/HowDownload_1.png)
+我们尝试将一些在大气科学学科科研中经常使用到的python程序封装成`函数`或者`类`，为气象事业做出自己的一份贡献。如果有志同道合的朋友，愿意为本开源函数库做出贡献，请仔细阅读[开发者说明](./DEVELOPER.md)。
 
-3. 选择你所需要下载的版本，点击对应版本下载`.whl`文件；
+## 依赖库说明
 
-   ![HowDownload_2](./FigGallery/HowDownload_2.png)
-
-4. 本地安装MeteoPy库；
-
-   + 如果像直接将MeteoPy库安装到本地的主python环境中，则打开cmd命令行，`pip install + 刚刚下载的whl文件地址`；
-
-     ![HowDownload_3](./FigGallery/HowDownload_3.png)
-
-   + 如果想安装在conda的某个虚拟环境中，则先打开`Anaconda Prompt`，然后进入目标虚拟环境`conda activate **`，最后再`pip install + 刚刚下载的whl文件地址`;
-
-     ![HowDownload_4](./FigGallery/HowDownload_4.png)
-
-     ![HowDownload_5](./FigGallery/HowDownload_5.png)
-
-     
-
-**注意：不要，不要，不要直接`pip install MeteoPy`，因为在PyPI官网上有同名函数，所有直接下载的并不是我们这个MetetoPy**
-
-
+本函数库也依赖其他python库，详见[MeteoPy依赖库说明](./DEPENDENCE.md)。
 
 
 ## 函数库说明
 
 此函数库中存有多个文件夹，初略可分为`功能文件夹`和`测试文件夹`。
-
-+ 本函数库也依赖其他python库，详见[MeteoPy依赖库说明](./DEPENDENCE.md)；
-+ 我们尝试将一些在科研中经常使用到的python程序封装成`函数`或者`类`，方便下次使用。如果有志同道合的朋友，愿意为本开源函数库做出贡献，请仔细阅读[开发者说明](./DEVELOPER.md)；
 
 ### Test
 
@@ -68,6 +73,8 @@
 此文件夹为数据处理文件夹，属于功能文件夹。存放一些数据处理的函数。
 
 [数据处理文件夹介绍](./MeteoPy/DataPro/README.md)
+
+
 
 
 
