@@ -42,9 +42,7 @@ def Function(var1 : str,
     
     # # 如何对字典类型的可选参数进行初始化
     # # 使用户使用时只需指定修改的参数即可，不用将所有参数都写上
-    import sys
-	sys.path.append('../../')  # 将MeteoPy目录放入搜索目录
-    from Tools.FunVarDefault import dict_default
+    from MeteoPy import dict_default
     
     # # 处理var5默认值问题
     var5_default = {'a':1, 'b':2, 'c':3}  # 指定var5的默认值
@@ -74,12 +72,6 @@ def Function(var1 : str,
   
   # # 单行注释 
   ```
-
-
-
-
-
-
 
 
 
