@@ -559,116 +559,104 @@ def LU_USGS24():
               'Snow or Ice']
     
     return cm, labels   
-    
-
-def image_to_video(image_path : str, 
-                   media_path : str, 
-                   fps : int = 2):
-    """图片合成视频
-
-    Args:
-        image_path (str): 系列图片存放路径(父文件夹地址)，末尾不带\
-        media_path (str): 合成的视频存放路径，注意指定视频格式.mp4
-        fps (int, optional): 每秒显示的图片数. Defaults to 2.
-
-    Attention:
-        1. 图片路径和视频路径中不得含有中文；
-        2. 图片dpi不能太高，否则合成视频的太大；
-        3. 图片命名建议用表示先后顺序的数字；
-    """
 
 
-    import os
-    import cv2  # python非标准库，pip install opencv-python 多媒体处理
-    from PIL import Image, ImageSequence  # python非标准库，pip install pillow，图像处理
-
-    # 获取图片路径下面的所有图片名称
-    image_names = os.listdir(image_path)
-    # 对提取到的图片名称进行排序
-    image_names.sort(key=lambda n: int(n[:-4]))
-    # 设置写入格式
-    fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-    
-    # 读取第一个图片获取大小尺寸，因为需要转换成视频的图片大小尺寸是一样的
-    image = Image.open(image_path + '\\' + image_names[0])
-    # 初始化媒体写入对象
-    media_writer = cv2.VideoWriter(media_path, fourcc, fps, image.size)
-    # 遍历图片，将每张图片加入视频当中
-    for image_name in image_names:
-        im = cv2.imread(os.path.join(image_path, image_name))
-        media_writer.write(im)
-        print(image_name, '合并完成！')
-    # 释放媒体写入对象
-    media_writer.release()
-    print('无声视频写入完成！')
-
-
-def picture_to_gif(image_path : str, 
-                   gif_path : str, 
-                   picture_type : str, 
-                   freq : float = 0.2):
+def image_to_gif(image_path : str, 
+                 gif_path : str, 
+                 picture_type : str, 
+                 interval : float = 200, 
+                 dpi : int = None):
     """图片合成gif动图
 
     Args:
         image_path (str): 图片路径, 文件夹路径末尾不带\
         gif_path (str): 合成.gif保存路径, 需要带上文件名
         picture_type (str): 图片格式，带.号
-        freq (float): 显示频率，每张图片显示的持续时间. Defaults to 0.2.
+        interval (float): 两张图片显示的间隔时间ms. Defaults to 200ms.
+        dpi (float): 图片像素. Defaults to None.
     """
     
 
     import os
-    import imageio
+    import matplotlib.pyplot as plt
+    import matplotlib.animation as animation
 
     # 获取图片路径下面的所有图片名称
     image_names = os.listdir(image_path)
     # 只获取指定格式图片
     image_names = list(filter(lambda x: x[-4:] == picture_type, image_names))
     # 对提取到的图片名称进行排序
-    image_names.sort(key=lambda n: int(n[:-4]))
+    image_names.sort()
+    # # 补全地址
+    image_names = [image_path + '/' + i for i in image_names]
 
-    imglist = []
+    # # 创建画布和绘图对象
+    fig, ax = plt.subplots()
+    # 删除xy轴刻度
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+    # 去除四周的线框
+    ax.spines['top'].set_color('none')
+    ax.spines['bottom'].set_color('none')
+    ax.spines['left'].set_color('none')
+    ax.spines['right'].set_color('none')
+
+    # # 合成gif动图
+    ims = []
     for i in image_names:
-        imglist.append(imageio.imread(image_path + '\\' + i))
+        im = ax.imshow(plt.imread(i), animated = True)
+        ims.append([im])
+    
+    ani = animation.ArtistAnimation(fig, ims, interval=interval)
+    if dpi:
+        ani.save(gif_path, dpi=dpi)
+    else:
+        ani.save(gif_path)
 
-    imageio.mimsave(gif_path, imglist, 'GIF', duration=freq)
 
-
-def compress_gif(gif_file : str, 
-                 new_gif_file : str, 
-                 rp : int):
-    """压缩gif动图
+def gif(fig, 
+        func, 
+        gif_name : str,
+        frames : int = 50, 
+        interval: int = 200):
+    """绘制gif动图
 
     Args:
-        gif_file (str): 欲压缩gif文件地址
-        new_gif_file (str): 压缩后的gif存放地址
-        rp (int): 自定义压缩后的图片尺寸rp*rp
+        fig (_type_): 空白画布
+        func (_type_): 可循环绘图的函数，传入参数仅为一个控制的整数
+        gif_name (str): 生成的动图存放地址
+        frames (int, optional): 对函数func进行多少次循环. Defaults to 50.
+        interval (int, optional): 两张图片间隔时间ms. Defaults to 200.
+
+    example：
+    >>> import matplotlib.pyplot as plt
+    >>> import numpy as np
+    >>> from MeteoPy import gif
+
+    >>> X = np.arange(0, 10, 0.01)  # X shape： (N,)
+    >>> Ys = [np.sin(X + k/10.0) for k in range(100)]  # Ys shape： (k, N)
+
+    >>> fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))
+
+    >>> def func(i):
+            axes[0].cla()  # 清除axes[0]当前轴，画plot()应该都需要
+            axes[0].plot(X, Ys[i])
+            axes[0].set_title(f'y = sin(x + {i}/10)')
+
+            axes[1].cla()
+            axes[1].hist(Ys[i], bins=50, orientation='horizontal')
+    >>> gif(fig, func, 'example.gif', frames=50, interval=200)
+
+    ** 注意gif()应与func同级，func后紧跟gif()。并且他们俩可以放在其他循环当中，
+       循环生成多张动图。
+    ** func传入参数只能为代表循环的整数，franes=50相当于对func进行了50次循环，i=0,1,2,...,49
     """
     
-    
-    import imageio
-    from PIL import Image, ImageSequence  # python非标准库，pip install pillow，图像处理
 
-    # 图片缓存空间
-    image_list = []
-    # 读取gif图片
-    im = Image.open(gif_file)
-    # 提取每一帧，并对其进行压缩，存入image_list
-    for frame in ImageSequence.Iterator(im):
-        frame = frame.convert('RGB')
-        if max(frame.size[0], frame.size[1]) > rp:
-            frame.thumbnail((rp, rp))
-        image_list.append(frame)
+    import matplotlib.animation as animation
 
-    # 计算帧之间的频率，间隔毫秒
-    duration = im.info['duration'] / 1000
-
-    # 读取image_list合并成gif
-    imageio.mimsave(new_gif_file, image_list, duration=duration)
-
-
-
-
+    ani = animation.FuncAnimation(fig, func, frames=frames, interval=interval)
+    ani.save(gif_name)
 
 
 

@@ -17,7 +17,7 @@ long_des = long_des1 + "\n\n" + long_des2
 
 print(find_packages())
 setup(name="MeteoPy",
-      version="0.0.2",
+      version="0.0.3",
       url="https://gitee.com/MeteoTop/MeteoPy",
       description="存放一些在科研过程中实用的python函数，主要针对大气科学学科，包括绘图、数据处理、文档处理等。",
       py_modules=["MeteoPy"],  # 需要打包的python文件列表

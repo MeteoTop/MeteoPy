@@ -5,6 +5,7 @@
  
 from .MeteoDraw.Draw import *  # 导入MeteoDraw.Draw中所有函数/库
 from .DataPro.PrePro import *
+from .DataPro.Statistic import *
 from .Tools.FileTools import *
 from .Tools.FunVarDefault import *
 from .Tools.GraphTools import *
