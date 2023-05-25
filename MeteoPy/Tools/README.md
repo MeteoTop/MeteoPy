@@ -10,12 +10,10 @@
 | LU_MODIS20()             | MODIS-20种土地利用类型，生成色标和对应的标签                 |
 | LU_MODIS21()             | MODIS-21种土地利用类型，生成色标和对应的标签                 |
 | LU_MODIS24()             | MODIS-24种土地利用类型，生成色标和对应的标签                 |
-| image_to_video()         | 图片合成视频                                                 |
-| picture_to_gif()         | 图片合成gif动图                                              |
-| compress_gif()           | 压缩gif动图                                                  |
 | adjust_sub_axes()        | 将ax_sub调整到ax_parant的左下角，并按shrink进行缩放，主要可以用于绘制中国南海小地图 |
 | box_select_rectangular() | 在地图中根据extent框出该矩形区域                             |
-|                          |                                                              |
+| image_to_gif()           | 图片合成gif动图                                              |
+| gif()                    | 直接循环绘制gif动图                                          |
 
 ## FunVarDefault.py
 
