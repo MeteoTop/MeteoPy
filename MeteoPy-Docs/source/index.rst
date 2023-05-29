@@ -9,10 +9,12 @@ MeteoPy使用指南
 .. toctree::
    :maxdepth: 2
 
-   download
-   quickstart/index
-   license
-   versionupdate
+   MeteoPy库如何安装
+   快速开始/index
+   API参考/index
+   贡献者指南/index
+   许可证
+   版本日志
 
 
 Indices and tables
