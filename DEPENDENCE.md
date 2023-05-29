@@ -1,6 +1,6 @@
 # MeteoPy依赖库说明
 
-## MeteoPy测试环境说明
+## 1. MeteoPy测试环境说明
 
 + 使用`miniconda`环境，安装的python版本为`3.10`，下载地址：[Miniconda — conda documentation](https://docs.conda.io/en/latest/miniconda.html)；
 
@@ -10,7 +10,7 @@
 
   ![DEPENDENCE_2](./FigGallery/DEPENDENCE_2.png)
 
-## 环境配置（推荐）
+## 2. 环境配置（推荐）
 
 在仓库主目录下，存有一个测试环境的备份文件[ENVIRONMENT.yml](./ENVIRONMENT.yml)，根据此文件可以直接移植我们的测试环境(python虚拟环境)。
 
@@ -32,7 +32,7 @@
 
   
 
-## 绘图模块
+## 3. 绘图模块
 
 在绘图模块`MeteoDraw`主要依赖如下python函数库，在使用绘图模块之前，要预先安装一下库：
 

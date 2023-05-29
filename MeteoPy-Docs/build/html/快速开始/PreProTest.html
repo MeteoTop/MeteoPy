@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测试DataPro文件夹下的PrePro.py &mdash; MeteoPy-Docs v0.0.3 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="测试DataPro文件夹下的Statistic.py" href="StatisticTest.html" />
+    <link rel="prev" title="快速开始/测试" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MeteoPy-Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../MeteoPy%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85.html">MeteoPy库如何安装</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">快速开始/测试</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">测试DataPro文件夹下的PrePro.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#heavy-sampling-method">1. 测试heavy_sampling_method()函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">1.1 第一类小时平均</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">1. 2第二类小时平均</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wrf-chem-getvars">2. 测试WRF_Chem_getvars()类</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.1 查看数据文件夹内容</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.2 测试类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.3 再次查看数据文件夹内容</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#o3-pm25-nc">2.4 查看202101_O3_PM25.nc，是否修改维度成功</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="StatisticTest.html">测试DataPro文件夹下的Statistic.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DrawTest.html">测试MetroDraw文件夹下的Draw.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GraphToolsTest.html">测试Tools文件夹下的GraphTools.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FileToolsTest.html">测试Tools文件夹下的FileTools.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API%E5%8F%82%E8%80%83/index.html">API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%B4%A1%E7%8C%AE%E8%80%85%E6%8C%87%E5%8D%97/index.html">贡献者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%B8%E5%8F%AF%E8%AF%81.html">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E7%89%88%E6%9C%AC%E6%97%A5%E5%BF%97.html">版本日志</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MeteoPy-Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">快速开始/测试</a></li>
+      <li class="breadcrumb-item active">测试DataPro文件夹下的PrePro.py</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/快速开始/PreProTest.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dataproprepro-py">
+<h1>测试DataPro文件夹下的PrePro.py<a class="headerlink" href="#dataproprepro-py" title="此标题的永久链接"></a></h1>
+<section id="heavy-sampling-method">
+<h2>1. 测试heavy_sampling_method()函数<a class="headerlink" href="#heavy-sampling-method" title="此标题的永久链接"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">MeteoPy</span> <span class="kn">import</span> <span class="n">heavy_sampling_method</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # 查看测试数据</span>
+<span class="n">test_file</span> <span class="o">=</span> <span class="s1">&#39;../TestData/test-30min.xlsx&#39;</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">test_file</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">test_data</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DR</th>
+      <th>UR</th>
+      <th>DLR</th>
+      <th>ULR</th>
+    </tr>
+    <tr>
+      <th>TIMESTAMP</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-04-01 12:00:00</th>
+      <td>930.000000</td>
+      <td>126.400000</td>
+      <td>288.900000</td>
+      <td>484.400000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 12:30:00</th>
+      <td>915.066667</td>
+      <td>123.993333</td>
+      <td>290.366667</td>
+      <td>490.270000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 13:00:00</th>
+      <td>909.866667</td>
+      <td>123.683333</td>
+      <td>291.906667</td>
+      <td>501.396667</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 13:30:00</th>
+      <td>891.800000</td>
+      <td>121.626667</td>
+      <td>292.163333</td>
+      <td>510.653333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 14:00:00</th>
+      <td>845.766667</td>
+      <td>116.406667</td>
+      <td>292.193333</td>
+      <td>516.360000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 14:30:00</th>
+      <td>773.556667</td>
+      <td>106.466667</td>
+      <td>293.266667</td>
+      <td>515.576667</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 15:00:00</th>
+      <td>686.596667</td>
+      <td>96.480000</td>
+      <td>295.806667</td>
+      <td>516.000000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 15:30:00</th>
+      <td>585.230000</td>
+      <td>83.264667</td>
+      <td>296.546667</td>
+      <td>510.566667</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 16:00:00</th>
+      <td>477.170000</td>
+      <td>70.346000</td>
+      <td>298.900000</td>
+      <td>502.723333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 16:30:00</th>
+      <td>365.630000</td>
+      <td>56.013000</td>
+      <td>297.413333</td>
+      <td>491.070000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 17:00:00</th>
+      <td>246.576667</td>
+      <td>37.756000</td>
+      <td>297.253333</td>
+      <td>475.110000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 17:30:00</th>
+      <td>124.262667</td>
+      <td>15.039333</td>
+      <td>295.976667</td>
+      <td>458.620000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 18:00:00</th>
+      <td>41.275000</td>
+      <td>10.658000</td>
+      <td>293.276667</td>
+      <td>444.156667</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 18:30:00</th>
+      <td>12.676706</td>
+      <td>6.802412</td>
+      <td>293.643333</td>
+      <td>432.466667</td>
+    </tr>
+  </tbody>
+</table><section id="id1">
+<h3>1.1 第一类小时平均<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # 测试函数</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="s1">&#39;2017-04-01 12:00:00&#39;</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="s1">&#39;2017-04-01 19:00:00&#39;</span>
+<span class="n">heavy_sampling_method</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2017-04-01 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 13:00:00&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;2017-04-01 14:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 15:00:00&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;2017-04-01 16:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 17:00:00&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;2017-04-01 18:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 19:00:00&#39;</span><span class="p">],</span>
+              <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">12</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.013964653015136719</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.016954660415649414</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.019945859909057617</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">15</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.024930715560913086</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">16</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.026925086975097656</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">17</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.02991652488708496</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.03392171859741211</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">19</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.03690004348754883</span><span class="n">s</span>
+</pre></div>
+</div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DR</th>
+      <th>UR</th>
+      <th>DLR</th>
+      <th>ULR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-04-01 12:00:00</th>
+      <td>930.000000</td>
+      <td>126.400000</td>
+      <td>288.900000</td>
+      <td>484.400000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 13:00:00</th>
+      <td>912.466667</td>
+      <td>123.838333</td>
+      <td>291.136667</td>
+      <td>495.833333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 14:00:00</th>
+      <td>868.783333</td>
+      <td>119.016667</td>
+      <td>292.178333</td>
+      <td>513.506667</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 15:00:00</th>
+      <td>730.076667</td>
+      <td>101.473333</td>
+      <td>294.536667</td>
+      <td>515.788333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 16:00:00</th>
+      <td>531.200000</td>
+      <td>76.805333</td>
+      <td>297.723333</td>
+      <td>506.645000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 17:00:00</th>
+      <td>306.103333</td>
+      <td>46.884500</td>
+      <td>297.333333</td>
+      <td>483.090000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 18:00:00</th>
+      <td>82.768833</td>
+      <td>12.848667</td>
+      <td>294.626667</td>
+      <td>451.388333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 19:00:00</th>
+      <td>12.676706</td>
+      <td>6.802412</td>
+      <td>293.643333</td>
+      <td>432.466667</td>
+    </tr>
+  </tbody>
+</table></section>
+<section id="id2">
+<h3>1. 2第二类小时平均<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">heavy_sampling_method</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DatetimeIndex</span><span class="p">([</span><span class="s1">&#39;2017-04-01 12:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 13:00:00&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;2017-04-01 14:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 15:00:00&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;2017-04-01 16:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 17:00:00&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;2017-04-01 18:00:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2017-04-01 19:00:00&#39;</span><span class="p">],</span>
+              <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.006975889205932617</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.01096034049987793</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">15</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.013952016830444336</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">16</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.01598215103149414</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">17</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.0179443359375</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.020936250686645508</span><span class="n">s</span>
+<span class="n">重抽样计算</span><span class="p">:</span><span class="mi">2017</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span> <span class="mi">19</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">用时</span><span class="p">:</span><span class="mf">0.02293086051940918</span><span class="n">s</span>
+</pre></div>
+</div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DR</th>
+      <th>UR</th>
+      <th>DLR</th>
+      <th>ULR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2017-04-01 13:00:00</th>
+      <td>922.533333</td>
+      <td>125.196667</td>
+      <td>289.633333</td>
+      <td>487.335000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 14:00:00</th>
+      <td>900.833333</td>
+      <td>122.655000</td>
+      <td>292.035000</td>
+      <td>506.025000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 15:00:00</th>
+      <td>809.661667</td>
+      <td>111.436667</td>
+      <td>292.730000</td>
+      <td>515.968333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 16:00:00</th>
+      <td>635.913333</td>
+      <td>89.872333</td>
+      <td>296.176667</td>
+      <td>513.283333</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 17:00:00</th>
+      <td>421.400000</td>
+      <td>63.179500</td>
+      <td>298.156667</td>
+      <td>496.896667</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 18:00:00</th>
+      <td>185.419667</td>
+      <td>26.397667</td>
+      <td>296.615000</td>
+      <td>466.865000</td>
+    </tr>
+    <tr>
+      <th>2017-04-01 19:00:00</th>
+      <td>26.975853</td>
+      <td>8.730206</td>
+      <td>293.460000</td>
+      <td>438.311667</td>
+    </tr>
+  </tbody>
+</table></section>
+</section>
+<section id="wrf-chem-getvars">
+<h2>2. 测试WRF_Chem_getvars()类<a class="headerlink" href="#wrf-chem-getvars" title="此标题的永久链接"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">MeteoPy</span> <span class="kn">import</span> <span class="n">WRF_Chem_getvars</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>2.1 查看数据文件夹内容<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;../TestData/WRF-Chem_out/&#39;</span>
+<span class="n">file_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">file_list</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;CCTM_SA_ACONC_v532_gcc_190316_20210102.nc&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CCTM_SA_ACONC_v532_gcc_190316_20210103.nc&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>2.2 测试类<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;../TestData/WRF-Chem_out/&#39;</span>
+<span class="n">which</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5&#39;</span><span class="p">]</span>
+<span class="n">ncfile</span> <span class="o">=</span> <span class="s1">&#39;../TestData/WRF-Chem_out/202101_O3_PM25.nc&#39;</span>
+<span class="n">WRF_Chem_getvars</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">which</span><span class="p">,</span> <span class="n">ncfile</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>../TestData/WRF-Chem_out//CCTM_SA_ACONC_v532_gcc_190316_20210102.nc: 合并完成！
+../TestData/WRF-Chem_out//CCTM_SA_ACONC_v532_gcc_190316_20210103.nc: 合并完成！
+合并完成！
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>2.3 再次查看数据文件夹内容<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # 查看是否生成合并后的数据</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;../TestData/WRF-Chem_out/&#39;</span>
+<span class="n">file_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">file_list</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;202101_O3_PM25.nc&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CCTM_SA_ACONC_v532_gcc_190316_20210102.nc&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;CCTM_SA_ACONC_v532_gcc_190316_20210103.nc&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="o3-pm25-nc">
+<h3>2.4 查看202101_O3_PM25.nc，是否修改维度成功<a class="headerlink" href="#o3-pm25-nc" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">ncfile</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="png" src="../_images/output1.png" /></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="快速开始/测试" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="StatisticTest.html" class="btn btn-neutral float-right" title="测试DataPro文件夹下的Statistic.py" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023, Shanchuan Xiao.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

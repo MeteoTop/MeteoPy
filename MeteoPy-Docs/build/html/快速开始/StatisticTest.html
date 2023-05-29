@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测试DataPro文件夹下的Statistic.py &mdash; MeteoPy-Docs v0.0.3 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="测试MetroDraw文件夹下的Draw.py" href="DrawTest.html" />
+    <link rel="prev" title="测试DataPro文件夹下的PrePro.py" href="PreProTest.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MeteoPy-Docs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../MeteoPy%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85.html">MeteoPy库如何安装</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">快速开始/测试</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PreProTest.html">测试DataPro文件夹下的PrePro.py</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">测试DataPro文件夹下的Statistic.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1. 通用测试数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rmse">2. 测试RMSE()函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#axis-0">2.1 列与列axis=0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#axis-1">2.2 行与行axis=1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mae">3. 测试MAE()函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3.1 列与列axis=0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3.2 行与行axis=1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#contrast">4. 测试contrast()函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">3.1 列与列axis=0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">4.2 行与行axis=1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DrawTest.html">测试MetroDraw文件夹下的Draw.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GraphToolsTest.html">测试Tools文件夹下的GraphTools.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FileToolsTest.html">测试Tools文件夹下的FileTools.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API%E5%8F%82%E8%80%83/index.html">API参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%B4%A1%E7%8C%AE%E8%80%85%E6%8C%87%E5%8D%97/index.html">贡献者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%B8%E5%8F%AF%E8%AF%81.html">许可证</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E7%89%88%E6%9C%AC%E6%97%A5%E5%BF%97.html">版本日志</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MeteoPy-Docs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">快速开始/测试</a></li>
+      <li class="breadcrumb-item active">测试DataPro文件夹下的Statistic.py</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/快速开始/StatisticTest.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dataprostatistic-py">
+<h1>测试DataPro文件夹下的Statistic.py<a class="headerlink" href="#dataprostatistic-py" title="此标题的永久链接"></a></h1>
+<section id="id1">
+<h2>1. 通用测试数据<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data1: &#39;</span><span class="p">,</span> <span class="n">data1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data2: &#39;</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data1 - data2: &#39;</span><span class="p">,</span> <span class="n">data1</span> <span class="o">-</span> <span class="n">data2</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="p">:</span> 
+<span class="p">[[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+ <span class="p">[</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">]</span>
+ <span class="p">[</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">]]</span>
+
+<span class="n">data2</span><span class="p">:</span> 
+<span class="p">[[</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">5</span> <span class="mi">7</span><span class="p">]</span>
+ <span class="p">[</span><span class="mi">3</span> <span class="mi">1</span> <span class="mi">4</span> <span class="mi">6</span> <span class="mi">3</span><span class="p">]</span>
+ <span class="p">[</span><span class="mi">8</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">data1</span> <span class="o">-</span> <span class="n">data2</span><span class="p">:</span> 
+<span class="p">[[</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">2</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>  <span class="mi">3</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mi">6</span>  <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">4</span>  <span class="mi">4</span><span class="p">]]</span>
+</pre></div>
+</div>
+</section>
+<section id="rmse">
+<h2>2. 测试RMSE()函数<a class="headerlink" href="#rmse" title="此标题的永久链接"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">MeteoPy</span> <span class="kn">import</span> <span class="n">RMSE</span>
+</pre></div>
+</div>
+<section id="axis-0">
+<h3>2.1 列与列axis=0<a class="headerlink" href="#axis-0" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RMSE</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mf">3.55902608</span><span class="p">,</span> <span class="mf">1.29099445</span><span class="p">,</span> <span class="mf">1.15470054</span><span class="p">,</span> <span class="mf">2.44948974</span><span class="p">,</span> <span class="mf">3.10912635</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="axis-1">
+<h3>2.2 行与行axis=1<a class="headerlink" href="#axis-1" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RMSE</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mf">1.4832397</span> <span class="p">,</span> <span class="mf">1.73205081</span><span class="p">,</span> <span class="mf">3.68781778</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="mae">
+<h2>3. 测试MAE()函数<a class="headerlink" href="#mae" title="此标题的永久链接"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">MeteoPy</span> <span class="kn">import</span> <span class="n">MAE</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>3.1 列与列axis=0<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MAE</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mf">2.66666667</span><span class="p">,</span> <span class="mf">1.</span>        <span class="p">,</span> <span class="mf">0.66666667</span><span class="p">,</span> <span class="mf">2.</span>        <span class="p">,</span> <span class="mf">3.</span>        <span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>3.2 行与行axis=1<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MAE</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="contrast">
+<h2>4. 测试contrast()函数<a class="headerlink" href="#contrast" title="此标题的永久链接"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">MeteoPy</span> <span class="kn">import</span> <span class="n">contrast</span>
+</pre></div>
+</div>
+<section id="id4">
+<h3>3.1 列与列axis=0<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">contrast</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE</th>
+      <th>RMSE</th>
+      <th>R</th>
+      <th>P-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.666667</td>
+      <td>3.559026</td>
+      <td>0.628619</td>
+      <td>0.567241</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.000000</td>
+      <td>1.290994</td>
+      <td>-0.5</td>
+      <td>0.666667</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.666667</td>
+      <td>1.154701</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.000000</td>
+      <td>2.449490</td>
+      <td>-0.327327</td>
+      <td>0.787704</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3.000000</td>
+      <td>3.109126</td>
+      <td>-0.981981</td>
+      <td>0.121038</td>
+    </tr>
+  </tbody>
+</table></section>
+<section id="id5">
+<h3>4.2 行与行axis=1<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">contrast</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>output:</strong></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>MAE</th>
+      <th>RMSE</th>
+      <th>R</th>
+      <th>P-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.4</td>
+      <td>1.483240</td>
+      <td>0.787839</td>
+      <td>0.113502</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.4</td>
+      <td>1.732051</td>
+      <td>0.435194</td>
+      <td>0.463918</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.8</td>
+      <td>3.687818</td>
+      <td>-0.819288</td>
+      <td>0.089676</td>
+    </tr>
+  </tbody>
+</table></section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="PreProTest.html" class="btn btn-neutral float-left" title="测试DataPro文件夹下的PrePro.py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="DrawTest.html" class="btn btn-neutral float-right" title="测试MetroDraw文件夹下的Draw.py" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2023, Shanchuan Xiao.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
